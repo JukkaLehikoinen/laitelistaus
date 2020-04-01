@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<title>Device editting page</title>
+</head>
+<body>
+<h1>Editting device</h1>
+<table class="table table-striped">
+
+	<tr>
+		<td><strong>Model</strong></td>
+		<td><strong>Weight</strong></td>
+		<td><strong>Brand</strong></td>
+		<td><strong>Screen</strong></td>
+		<td><strong>Technology</strong></td>
+			
+	</tr>
+	
+	<tr th:each="device : ${devices}">
+		<form th:if= "${device.id} == ${id}" th:object="${devices}" th:action="@{/modify}" action="#" method="post">
+		<td><input type="text" th:if= "${device.id} == ${id}" th:value="${device.model}" th:name="modelname" /></td>
+		<td><input type="text" th:if= "${device.id} == ${id}" th:value="${device.weight}" th:name="weight"/></td>
+	<td>
+			 <select th:name="manufactor" >
+       			<option th:each="manufactor: ${manufactories}" th:value="${manufactor.manufactorid}" 
+       			th:text="${manufactor.brand}" th:name ="manufactor" th:selected="${device.manufactor.brand == manufactor.brand}">
+       			</option>	
+    		</select>
+		<td><input type="number" step="0.01" th:if= "${device.id} == ${id}" th:value="${device.screen}" th:name="screen"/></td>
+		<input type="hidden" th:if= "${device.id} == ${id}" th:value="${id}" th:name="id" />
+		<td>
+			 <select th:name="category" >
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" 
+       			th:text="${category.tech}" th:name ="category" th:selected="${device.category.tech == category.tech}">>
+       			</option>	
+    		</select>
+    	</td>
+		<input th:if= "${device.id} == ${id}" class="btn btn-primary" type="submit" value="Modify"></input> 
+		</form>
+	</tr>
+	
+</table>
+
+	<!--  <a href="/modify">Modify</a> -->
+	<a class="btn btn-danger" href="/devicelist">Cancel</a>	
+</body>
+</html>
+
+

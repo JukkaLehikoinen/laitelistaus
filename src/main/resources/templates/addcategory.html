@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Adding new device to database</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href:"css/bootstrap.min.css"  th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Add a device</h1>
+	<div>
+	<table class="table table-striped">
+		<form  th:object="${categories}" th:action="@{catesave}" action="#" method="post">
+		  	
+		  	
+    	
+    		<label>Technology</label>
+			<input type="text" id="tech" th:field="*{tech}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	    		
+		  	<br><br>
+		  		<input class="btn btn-success" type="submit" value="Save"></input>
+		</form>
+		<a class="btn btn-danger" href="/devicelist">Cancel</a>
+	</div>
+	</table>
+</body>
+</html>

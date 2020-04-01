@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href:"css/bootstrap.min.css"  th:href="@{css/bootstrap.min.css}" />
+<title>Devicelist</title>
+</head>
+<body>
+<h1>Listing devices</h1>
+
+<div class="col-md-4">
+		<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	</div>
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Log out" class="btn btn-danger" >
+		</form>
+	</div>
+
+<table class="table table-striped">
+	<tr>
+		<td><strong>Manufactor</strong></td>
+		<td><strong>Model</strong></td>
+		<td><strong>Tech</strong></td>
+		<td><strong>Weight</strong></td>
+		<td><strong>Screensize</strong></td>
+	
+	</tr>
+	
+	<tr th:each="device : ${devices}">
+		<td th:text = "${device.manufactor.brand}">manufactor.brand</td>
+		<td th:text= "${device.model}">model</td>
+		<td th:text= "${device.category.tech}">category.device</td>
+		<td th:text= "${device.weight + ' g'}">weight</td>
+		<td th:text= "${device.screen + ' inch'}">screen</td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/delete/{id}(id=${device.id})}">Delete<img src="https://img.icons8.com/doodle/24/000000/delete-sign.png"/></a></td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success" th:href="@{/edit/{id}(id=${device.id})}">Edit <img src="https://img.icons8.com/material/20/000000/edit--v1.png"/></a></td>
+	</tr>
+</table>
+	<a class="btn btn-success" href="/adddevice"><img src="https://img.icons8.com/ios/24/000000/touchscreen-smartphone.png"/> Add device</a>
+	<a class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" href="/addmanufactor" ><img src="https://img.icons8.com/metro/24/000000/mac-os.png"/> Add manufactor <img src="https://img.icons8.com/metro/24/000000/android-os.png"/></a>
+	<a class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" href="/addcategory"><img src="https://img.icons8.com/wired/24/000000/joystick.png"/> Add technology</a>
+</body>
+</html>
