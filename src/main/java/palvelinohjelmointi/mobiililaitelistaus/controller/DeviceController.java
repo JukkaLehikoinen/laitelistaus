@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import palvelinohjelmointi.mobiililaitelistaus.domain.ManufactorRepository;
 
 
 @Controller
+@CrossOrigin
 public class DeviceController {
 	@Autowired
 	private DeviceRepository devicerepository; 
@@ -46,7 +48,6 @@ public class DeviceController {
 	@RequestMapping(value = "/devicelist", method = RequestMethod.GET)
 		public String listingBooks(Model model) {	
 			model.addAttribute("devices", devicerepository.findAll());
-		
 		//	System.out.println();
 			return "devicelist";
 	}
@@ -56,6 +57,7 @@ public class DeviceController {
 		 	model.addAttribute("devices", new Device());
 		 	model.addAttribute("categories", categoryrepository.findAll());
 		 	model.addAttribute("manufactories", manufactorrepository.findAll());
+		 	
 		 	return "adddevice";
  }   
 	 @RequestMapping(value = "/addmanufactor")
@@ -72,6 +74,8 @@ public class DeviceController {
 	 @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String saveDevice(Device device){
 	        devicerepository.save(device);
+	        //String hmm = devicerepository.findById(id).get().getModel();
+	      
 	       
 	        return "redirect:devicelist";
 	    }    
@@ -102,7 +106,7 @@ public class DeviceController {
 	
 		 	model.addAttribute("categories", categoryrepository.findAll());
 		 	model.addAttribute("manufactories",manufactorrepository.findAll());
-//		 	String hmm = repository.findById(bookId).get().getCategory().getName();
+//		 	String hmm = devicerepository.findById(bookId).get().getCategory().getName();
 //		 	System.out.println(hmm);
 	        return "editdevice";
 	 	}
@@ -114,6 +118,7 @@ public class DeviceController {
 	    		@RequestParam(name= "screen",required=false) double screen,
 	    		@RequestParam(name= "id") Long id, Model model) {
 		 	//repository.deleteById(id);
+		 
 		 	model.addAttribute("devices", devicerepository.findAll());
 		 //	System.out.println(crepository.findById(cat).get());
 		 	
