@@ -40,6 +40,7 @@ public class DeviceController {
     }
 
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value="/login")
 	public String login() {	
 		return "login";
@@ -127,6 +128,7 @@ public class DeviceController {
 	    }    
 	 
 		//RESTFUL Devices list
+	 @CrossOrigin(origins = "http://localhost:3000")
 	 @RequestMapping(value="/devices", method = RequestMethod.GET)
     public @ResponseBody List<Device> deviceRest() {	
         return (List<Device>) devicerepository.findAll();
