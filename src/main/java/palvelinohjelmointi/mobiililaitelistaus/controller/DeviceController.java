@@ -40,7 +40,7 @@ public class DeviceController {
     }
 
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	
 	@RequestMapping(value="/login")
 	public String login() {	
 		return "login";
