@@ -23,7 +23,7 @@ import palvelinohjelmointi.mobiililaitelistaus.domain.ManufactorRepository;
 
 
 @Controller
-@CrossOrigin
+@CrossOrigin(origins = "https://mobiledevicelist.herokuapp.com", maxAge = 3600)
 public class DeviceController {
 	@Autowired
 	private DeviceRepository devicerepository; 
@@ -128,7 +128,7 @@ public class DeviceController {
 	    }    
 	 
 		//RESTFUL Devices list
-	 @CrossOrigin(origins = "http://localhost:3000")
+	 @CrossOrigin(origins = "https://mobiledevicelist.herokuapp.com", maxAge = 3600)
 	 @RequestMapping(value="/devices", method = RequestMethod.GET)
     public @ResponseBody List<Device> deviceRest() {	
         return (List<Device>) devicerepository.findAll();
