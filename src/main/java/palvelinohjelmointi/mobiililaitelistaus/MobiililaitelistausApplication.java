@@ -39,12 +39,12 @@ public class MobiililaitelistausApplication {
 			
 			
 			
-			devicerepository.save(new Device(devicerepository.count(),"Galaxy S10",157,6.1,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Samsung").get(0)));
-			devicerepository.save(new Device(devicerepository.count(),"P30 Pro",192,6.47,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Huawei").get(0)));
-			devicerepository.save(new Device(devicerepository.count(),"iPhone X",174,5.9,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Apple").get(0)));
-			devicerepository.save(new Device(devicerepository.count(),"7.2",180,6.3,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Nokia").get(0)));
-			devicerepository.save(new Device(devicerepository.count(),"iPad Pro 12.9",641,12.9,categoryrepository.findByTech("Tablet").get(0),manufactorrepository.findByBrand("Apple").get(0)));
-			devicerepository.save(new Device(devicerepository.count(),"Galaxy Tab A 10.1 (2019)",469,10.1,categoryrepository.findByTech("Tablet").get(0),manufactorrepository.findByBrand("Samsung").get(0)));
+			devicerepository.save(new Device("Galaxy S10",157,6.1,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Samsung").get(0)));
+			devicerepository.save(new Device("P30 Pro",192,6.47,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Huawei").get(0)));
+			devicerepository.save(new Device("iPhone X",174,5.9,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Apple").get(0)));
+			devicerepository.save(new Device("7.2",180,6.3,categoryrepository.findByTech("Phone").get(0),manufactorrepository.findByBrand("Nokia").get(0)));
+			devicerepository.save(new Device("iPad Pro 12.9",641,12.9,categoryrepository.findByTech("Tablet").get(0),manufactorrepository.findByBrand("Apple").get(0)));
+			devicerepository.save(new Device("Galaxy Tab A 10.1 (2019)",469,10.1,categoryrepository.findByTech("Tablet").get(0),manufactorrepository.findByBrand("Samsung").get(0)));
 			
 			// Create users: admin/admin user/user
 			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER","user@user.fi");

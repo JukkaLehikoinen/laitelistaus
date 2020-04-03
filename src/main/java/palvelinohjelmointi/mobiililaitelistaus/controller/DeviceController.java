@@ -125,7 +125,7 @@ public class DeviceController {
 		model.addAttribute("devices", devicerepository.findAll());
 		// System.out.println(crepository.findById(cat).get());
 
-		devicerepository.save(new Device(id, modelname, weight, screen, categoryrepository.findById(cat).get(),
+		devicerepository.save(new Device(modelname, weight, screen, categoryrepository.findById(cat).get(),
 				manufactorrepository.findById(manu).get()));
 		return "redirect:devicelist";
 	}
@@ -136,14 +136,14 @@ public class DeviceController {
 	public @ResponseBody List<Device> deviceRest() {
 		return (List<Device>) devicerepository.findAll();
 	}
+	
 	// RESTFUL Brand list
-
 	@RequestMapping(value = "/brands", method = RequestMethod.GET)
 	public @ResponseBody List<Manufactor> manufactorRest() {
 		return (List<Manufactor>) manufactorrepository.findAll();
 	}
+	
 	// RESTFUL Category list
-
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public @ResponseBody List<Category> categoryRest() {
 		return (List<Category>) categoryrepository.findAll();
@@ -151,7 +151,7 @@ public class DeviceController {
 
 	// RESTful service to get device by id
 	@RequestMapping(value = "/devices/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Device> findBookRest(@PathVariable("id") Long DeviceId) {
+	public @ResponseBody Optional<Device> findDeviceRest(@PathVariable("id") Long DeviceId) {
 		return devicerepository.findById(DeviceId);
 	}
 }

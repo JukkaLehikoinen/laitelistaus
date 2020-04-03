@@ -35,9 +35,8 @@ public class Device {
 		
 	}
 
-	public Device(Long id,String model, int weight, double screen, Category category, Manufactor manufactor) {
+	public Device(String model, int weight, double screen, Category category, Manufactor manufactor) {
 		super();
-		this.id = id;
 		this.model = model;
 		this.weight = weight;
 		this.screen = screen;
@@ -95,16 +94,7 @@ public class Device {
 		this.manufactor= manufactor;
 	}
 
-	@Override
-	public String toString() {
-		if (this.category!= null && this.manufactor!=null)
-			return "Device [model=" + model+ ", weight=" + weight+ ", screen=" + screen + this.getCategory() + this.getManufactor() + "]";
-		
-		
-		 else 
-			return "Device [model=" + model + ", weight=" + weight+ ", screen=" + screen + "]";
-		
-	}
+	
 	 
 
 }
