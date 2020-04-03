@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="manufactor")
@@ -20,13 +21,13 @@ public class Manufactor {
 	private Long manufactorid;
 	private String brand;
 	
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "manufactor")
 	private List<Device> devices;
 	
 	public Manufactor() {}
 	
 	public Manufactor(String brand) {
-		super();
 		this.brand= brand;
 	}
 	
@@ -46,16 +47,16 @@ public class Manufactor {
 		this.brand = brand;
 	}
 
-	public List<Device> getDevice() {
+	public List<Device> getDevices() {
 		return devices;
 	}
 
-	public void setBooks(List<Device> devices) {
+	public void setDevices(List<Device> devices) {
 		this.devices= devices;
 	}
 
-	@Override
-	public String toString() {
-		return "Manufactor [manufactorid=" + manufactorid + ", brand=" + brand + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Manufactor [manufactorid=" + manufactorid + ", brand=" + brand + "]";
+//	}
 }

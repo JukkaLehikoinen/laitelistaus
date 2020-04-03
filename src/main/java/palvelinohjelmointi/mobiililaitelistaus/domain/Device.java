@@ -6,11 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
+@Table(name="devices")
 public class Device {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,12 +25,13 @@ public class Device {
 	
 	
 	@ManyToOne
-	@JsonIgnore
+	//@JsonManagedReference
 	@JoinColumn(name="categoryid")
 	private Category category;
-	
+	 
 	@ManyToOne
 	@JsonIgnore
+	@JsonManagedReference
 	@JoinColumn(name="manufactorid")
 	private Manufactor manufactor;
 	
@@ -94,12 +98,18 @@ public class Device {
 		this.manufactor= manufactor;
 	}
 
+	
 	@Override
 	public String toString() {
-	
+//		if (this.category!= null && this.manufactor!=null) {
+//			return "Device [model=" + model+ ", weight=" + weight+ ", screen=" + screen + this.getCategory() + this.getManufactor() + "]";
+//		}
+//		else {
 			return "Device [model=" + model + ", weight=" + weight+ ", screen=" + screen + "]";
 		
+//	}}
 	}
 	 
+	
 
 }

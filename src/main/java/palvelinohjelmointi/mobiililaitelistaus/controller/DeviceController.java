@@ -46,7 +46,7 @@ public class DeviceController {
 	@RequestMapping(value = "/devicelist", method = RequestMethod.GET)
 	public String listingBooks(Model model) {
 		model.addAttribute("devices", devicerepository.findAll());
-		// System.out.println();
+		//System.out.println(devicerepository.findAll());
 		return "devicelist";
 	}
 
@@ -131,7 +131,6 @@ public class DeviceController {
 	}
 
 	// RESTFUL Devices list
-
 	@RequestMapping(value = "/devices", method = RequestMethod.GET)
 	public @ResponseBody List<Device> deviceRest() {
 		return ((List<Device>) devicerepository.findAll());
@@ -153,5 +152,18 @@ public class DeviceController {
 	@RequestMapping(value = "/devices/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Device> findDeviceRest(@PathVariable("id") Long DeviceId) {
 		return devicerepository.findById(DeviceId);
+	}
+	
+	// RESTful service to get manufactor by manufactorid
+	@RequestMapping(value = "/brands/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Manufactor> findManufactorRest(@PathVariable("id") Long manufactorId) {
+		return manufactorrepository.findById(manufactorId);
+	}
+	
+	// RESTful service to get categories by categoryid
+	@RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Category> findCategoryRest(@PathVariable("id") Long categoryId) {
+		return categoryrepository.findById(categoryId);
+		
 	}
 }
