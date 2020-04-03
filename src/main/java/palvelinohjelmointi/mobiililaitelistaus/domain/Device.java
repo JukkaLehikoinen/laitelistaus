@@ -94,7 +94,12 @@ public class Device {
 		this.manufactor= manufactor;
 	}
 
+	@Override
+	public String toString() {
 	
+			return "Device [model=" + model + ", weight=" + weight+ ", screen=" + screen + "]";
+		
+	}
 	 
 
 }

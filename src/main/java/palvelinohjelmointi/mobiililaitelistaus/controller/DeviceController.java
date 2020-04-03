@@ -134,7 +134,7 @@ public class DeviceController {
 
 	@RequestMapping(value = "/devices", method = RequestMethod.GET)
 	public @ResponseBody List<Device> deviceRest() {
-		return (List<Device>) devicerepository.findAll();
+		return ((List<Device>) devicerepository.findAll());
 	}
 	
 	// RESTFUL Brand list
