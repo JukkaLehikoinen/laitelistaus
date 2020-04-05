@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -223,8 +224,8 @@ public class DeviceController {
 	
 	@CrossOrigin(origins = "*")
 	// RESTful service to delete device by id
-		@RequestMapping(value = "/deldevice/{id}", method = RequestMethod.DELETE)
-		public  @ResponseBody Optional<Device> DeleteDeviceRest(@PathVariable("id") Long DeviceId) {
-			return devicerepository.findById(DeviceId);
+		@DeleteMapping(value = "/deletes/{id}")
+		public void DeleteDeviceRest(@PathVariable("id") Long DeviceId) {
+			devicerepository.deleteById(DeviceId);
 		}
 }
