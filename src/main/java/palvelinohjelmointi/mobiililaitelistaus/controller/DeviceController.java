@@ -22,7 +22,7 @@ import palvelinohjelmointi.mobiililaitelistaus.domain.Manufactor;
 import palvelinohjelmointi.mobiililaitelistaus.domain.ManufactorRepository;
 
 @Controller
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class DeviceController {
 	@Autowired
 	private DeviceRepository devicerepository;
