@@ -221,9 +221,10 @@ public class DeviceController {
 		
 	}
 	
+	@CrossOrigin(origins = "*")
 	// RESTful service to delete device by id
-		@RequestMapping(value = "/devices/{id}", method = RequestMethod.DELETE)
-		public @ResponseBody Optional<Device> DeleteDeviceRest(@PathVariable("id") Long DeviceId) {
+		@RequestMapping(value = "/deldevice/{id}", method = RequestMethod.DELETE)
+		public  @ResponseBody Optional<Device> DeleteDeviceRest(@PathVariable("id") Long DeviceId) {
 			return devicerepository.findById(DeviceId);
 		}
 }
