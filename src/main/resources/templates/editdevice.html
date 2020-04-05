@@ -22,7 +22,7 @@
 	<tr th:each="device : ${devices}">
 		<form th:if= "${device.id} == ${id}" th:object="${devices}" th:action="@{/modify}" action="#" method="post">
 		<td><input type="text" th:if= "${device.id} == ${id}" th:value="${device.model}" th:name="modelname" /></td>
-		<td><input type="text" th:if= "${device.id} == ${id}" th:value="${device.weight}" th:name="weight"/></td>
+		<td><input type="number" th:if= "${device.id} == ${id}" th:value="${device.weight}" th:name="weight"/></td>
 	<td>
 			 <select th:name="manufactor" >
        			<option th:each="manufactor: ${manufactories}" th:value="${manufactor.manufactorid}" 
