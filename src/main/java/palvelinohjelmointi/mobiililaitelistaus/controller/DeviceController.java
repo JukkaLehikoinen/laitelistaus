@@ -120,10 +120,11 @@ public class DeviceController {
 			@RequestParam(name = "weight", required = false) int weight,
 			@RequestParam(name = "screen", required = false) double screen, @RequestParam(name = "id") Long id,
 			Model model) {
-		// repository.deleteById(id);
+		 devicerepository.deleteById(id);
 
-		model.addAttribute("devices", devicerepository.findAll());
-		// System.out.println(crepository.findById(cat).get());
+		//model.addAttribute("devices", devicerepository.findAll());
+		//devicerepository.findById(id);
+		//System.out.println(devicerepository.findById(id).get());
 
 		devicerepository.save(new Device(modelname, weight, screen, categoryrepository.findById(cat).get(),
 				manufactorrepository.findById(manu).get()));
