@@ -220,4 +220,10 @@ public class DeviceController {
 		return categoryrepository.findById(categoryId);
 		
 	}
+	
+	// RESTful service to delete device by id
+		@RequestMapping(value = "/devices/{id}", method = RequestMethod.DELETE)
+		public @ResponseBody Optional<Device> DeleteDeviceRest(@PathVariable("id") Long DeviceId) {
+			return devicerepository.findById(DeviceId);
+		}
 }
