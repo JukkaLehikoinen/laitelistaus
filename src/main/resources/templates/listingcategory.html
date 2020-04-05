@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Technology database</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href:"css/bootstrap.min.css"  th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Categories</h1>
+	<div>
+	
+	
+		  	
+<table class="table table-striped">
+	<tr>
+		<td><strong>Category</strong></td>
+		<td>Please be very careful with these. Deleting tech, delete device also within.</td>
+		
+	</tr>
+		
+	<tr th:each="category: ${categories}">
+		<td th:text = "${category.tech}">category.tech</td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/catedelete/{id}(id=${category.categoryid})}">Delete<img src="https://img.icons8.com/doodle/24/000000/delete-sign.png"/></a></td>
+	</tr>
+	
+</table>
+<a class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" href="/addcategory"><img src="https://img.icons8.com/wired/24/000000/joystick.png"/> Add new technology</a>
+<a class="btn btn-danger" href="/devicelist">Cancel</a>
+</body>
+</html>

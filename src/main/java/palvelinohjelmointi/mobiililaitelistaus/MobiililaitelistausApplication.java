@@ -31,6 +31,7 @@ public class MobiililaitelistausApplication {
 			log.info("Lisätään laitteita");
 			categoryrepository.save(new Category("Phone"));
 			categoryrepository.save(new Category("Tablet"));
+			categoryrepository.save(new Category("Watch"));
 			
 			manufactorrepository.save(new Manufactor("Apple"));
 			manufactorrepository.save(new Manufactor("Huawei"));

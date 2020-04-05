@@ -64,33 +64,73 @@ public class DeviceController {
 		model.addAttribute("manufactories", new Manufactor());
 		return "addmanufactor";
 	}
+	@RequestMapping(value = "/listingmanufactor")
+	public String ListingManufactor(Model model) {
+		model.addAttribute("manufactories",manufactorrepository.findAll());
+		//model.addAttribute("categories", new Category());
+		
+		return "listingmanufactor";
+	}
 
+	@RequestMapping(value = "/listingcategory")
+	public String ListingCatergory(Model model) {
+		model.addAttribute("categories",categoryrepository.findAll());
+		//model.addAttribute("categories", new Category());
+		
+		return "listingcategory";
+	}
 	@RequestMapping(value = "/addcategory")
 	public String addCatergory(Model model) {
+		//model.addAttribute("categories",categoryrepository.findAll());
 		model.addAttribute("categories", new Category());
+		
 		return "addcategory";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveDevice(Device device) {
+		
+		if (device.getModel()=="") {
+			device.setModel("Unknown super duper device");
+		}
+		if (device.getWeight()==0) {
+			device.setWeight(1);
+		}
+		if (device.getScreen()==0.0) {
+			device.setScreen(0.1);
+		}
 		devicerepository.save(device);
-		// String hmm = devicerepository.findById(id).get().getModel();
 
 		return "redirect:devicelist";
 	}
 
 	@RequestMapping(value = "/manusave", method = RequestMethod.POST)
 	public String saveManufactor(Manufactor manufactor) {
+		if (manufactor.getBrand()=="") {
+			manufactor.setBrand("Unknown brand");
+		}
+		
+		String upperCaser = manufactor.getBrand().substring(0, 1).toUpperCase() + manufactor.getBrand().substring(1);
+		manufactor.setBrand(upperCaser);
 		manufactorrepository.save(manufactor);
 
-		return "redirect:devicelist";
+		
+		
+		return "redirect:listingmanufactor";
 	}
 
 	@RequestMapping(value = "/catesave", method = RequestMethod.POST)
 	public String saveCategory(Category category) {
+		if (category.getTech()=="") {
+			category.setTech("Unknown tech");
+		}
+		
+		String upperCaser = category.getTech().substring(0, 1).toUpperCase() + category.getTech().substring(1);
+		category.setTech(upperCaser);
+		
 		categoryrepository.save(category);
 
-		return "redirect:devicelist";
+		return "redirect:listingcategory";
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
@@ -98,6 +138,20 @@ public class DeviceController {
 	public String deleteDevice(@PathVariable("id") Long DeviceId, Model model) {
 		devicerepository.deleteById(DeviceId);
 		return "redirect:../devicelist";
+	}
+	
+	@RequestMapping(value = "/catedelete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deleteCategory(@PathVariable("id") Long cateId, Model model) {
+		categoryrepository.deleteById(cateId);
+		return "redirect:../listingcategory";
+	}
+	
+	@RequestMapping(value = "/manudelete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deleteManufactor(@PathVariable("id") Long manuId, Model model) {
+		manufactorrepository.deleteById(manuId);
+		return "redirect:../listingmanufactor";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -120,13 +174,12 @@ public class DeviceController {
 			@RequestParam(name = "weight", required = false) int weight,
 			@RequestParam(name = "screen", required = false) double screen, @RequestParam(name = "id") Long id,
 			Model model) {
-		 devicerepository.deleteById(id);
-
+		 //devicerepository.findById(id);			
 		//model.addAttribute("devices", devicerepository.findAll());
 		//devicerepository.findById(id);
-		//System.out.println(devicerepository.findById(id).get());
+		//System.out.println(devicerepository.findAll());
 
-		devicerepository.save(new Device(modelname, weight, screen, categoryrepository.findById(cat).get(),
+		devicerepository.save(new Device(id,modelname, weight, screen, categoryrepository.findById(cat).get(),
 				manufactorrepository.findById(manu).get()));
 		return "redirect:devicelist";
 	}

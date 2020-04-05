@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -18,8 +19,14 @@ public class Device {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	
+
+	
 	private String model;
+	
 	private int weight;
+	
 	private double screen;
 	
 	
@@ -47,6 +54,17 @@ public class Device {
 		this.category = category;
 		this.manufactor = manufactor;
 		
+	}
+	
+
+	public Device(Long id, String model, int weight, double screen, Category category, Manufactor manufactor) {
+		super();
+		this.id = id;
+		this.model = model;
+		this.weight = weight;
+		this.screen = screen;
+		this.category = category;
+		this.manufactor = manufactor;
 	}
 
 	
