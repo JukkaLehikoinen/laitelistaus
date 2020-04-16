@@ -24,6 +24,8 @@ public class MobiililaitelistausApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MobiililaitelistausApplication.class, args);
 	}
+	
+	
 
 	@Bean
 	public CommandLineRunner Listaus(DeviceRepository devicerepository, CategoryRepository categoryrepository, ManufactorRepository manufactorrepository, UserRepository urepository) {
