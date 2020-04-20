@@ -48,7 +48,7 @@ public class DeviceController {
 	@RequestMapping(value = "/devicelist", method = RequestMethod.GET)
 	public String listingBooks(Model model) {
 		model.addAttribute("devices", devicerepository.findAll());
-		//System.out.println(devicerepository.findAll());
+		// System.out.println(devicerepository.findAll());
 		return "devicelist";
 	}
 
@@ -66,39 +66,41 @@ public class DeviceController {
 		model.addAttribute("manufactories", new Manufactor());
 		return "addmanufactor";
 	}
+
 	@RequestMapping(value = "/listingmanufactor")
 	public String ListingManufactor(Model model) {
-		model.addAttribute("manufactories",manufactorrepository.findAll());
-		//model.addAttribute("categories", new Category());
-		
+		model.addAttribute("manufactories", manufactorrepository.findAll());
+		// model.addAttribute("categories", new Category());
+
 		return "listingmanufactor";
 	}
 
 	@RequestMapping(value = "/listingcategory")
 	public String ListingCatergory(Model model) {
-		model.addAttribute("categories",categoryrepository.findAll());
-		//model.addAttribute("categories", new Category());
-		
+		model.addAttribute("categories", categoryrepository.findAll());
+		// model.addAttribute("categories", new Category());
+
 		return "listingcategory";
 	}
+
 	@RequestMapping(value = "/addcategory")
 	public String addCatergory(Model model) {
-		//model.addAttribute("categories",categoryrepository.findAll());
+		// model.addAttribute("categories",categoryrepository.findAll());
 		model.addAttribute("categories", new Category());
-		
+
 		return "addcategory";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveDevice(Device device) {
-		
-		if (device.getModel()=="") {
+
+		if (device.getModel() == "") {
 			device.setModel("Unknown super duper device");
 		}
-		if (device.getWeight()==0) {
+		if (device.getWeight() == 0) {
 			device.setWeight(1);
 		}
-		if (device.getScreen()==0.0) {
+		if (device.getScreen() == 0.0) {
 			device.setScreen(0.1);
 		}
 		devicerepository.save(device);
@@ -108,28 +110,26 @@ public class DeviceController {
 
 	@RequestMapping(value = "/manusave", method = RequestMethod.POST)
 	public String saveManufactor(Manufactor manufactor) {
-		if (manufactor.getBrand()=="") {
+		if (manufactor.getBrand() == "") {
 			manufactor.setBrand("Unknown brand");
 		}
-		
+
 		String upperCaser = manufactor.getBrand().substring(0, 1).toUpperCase() + manufactor.getBrand().substring(1);
 		manufactor.setBrand(upperCaser);
 		manufactorrepository.save(manufactor);
 
-		
-		
 		return "redirect:listingmanufactor";
 	}
 
 	@RequestMapping(value = "/catesave", method = RequestMethod.POST)
 	public String saveCategory(Category category) {
-		if (category.getTech()=="") {
+		if (category.getTech() == "") {
 			category.setTech("Unknown tech");
 		}
-		
+
 		String upperCaser = category.getTech().substring(0, 1).toUpperCase() + category.getTech().substring(1);
 		category.setTech(upperCaser);
-		
+
 		categoryrepository.save(category);
 
 		return "redirect:listingcategory";
@@ -141,14 +141,14 @@ public class DeviceController {
 		devicerepository.deleteById(DeviceId);
 		return "redirect:../devicelist";
 	}
-	
+
 	@RequestMapping(value = "/catedelete/{id}", method = RequestMethod.GET)
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteCategory(@PathVariable("id") Long cateId, Model model) {
 		categoryrepository.deleteById(cateId);
 		return "redirect:../listingcategory";
 	}
-	
+
 	@RequestMapping(value = "/manudelete/{id}", method = RequestMethod.GET)
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteManufactor(@PathVariable("id") Long manuId, Model model) {
@@ -176,12 +176,12 @@ public class DeviceController {
 			@RequestParam(name = "weight", required = false) int weight,
 			@RequestParam(name = "screen", required = false) double screen, @RequestParam(name = "id") Long id,
 			Model model) {
-		 //devicerepository.findById(id);			
-		//model.addAttribute("devices", devicerepository.findAll());
-		//devicerepository.findById(id);
-		//System.out.println(devicerepository.findAll());
+		// devicerepository.findById(id);
+		// model.addAttribute("devices", devicerepository.findAll());
+		// devicerepository.findById(id);
+		// System.out.println(devicerepository.findAll());
 
-		devicerepository.save(new Device(id,modelname, weight, screen, categoryrepository.findById(cat).get(),
+		devicerepository.save(new Device(id, modelname, weight, screen, categoryrepository.findById(cat).get(),
 				manufactorrepository.findById(manu).get()));
 		return "redirect:devicelist";
 	}
@@ -191,13 +191,13 @@ public class DeviceController {
 	public @ResponseBody List<Device> deviceRest() {
 		return ((List<Device>) devicerepository.findAll());
 	}
-	
+
 	// RESTFUL Brand list
 	@RequestMapping(value = "/brands", method = RequestMethod.GET)
 	public @ResponseBody List<Manufactor> manufactorRest() {
 		return (List<Manufactor>) manufactorrepository.findAll();
 	}
-	
+
 	// RESTFUL Category list
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public @ResponseBody List<Category> categoryRest() {
@@ -209,27 +209,18 @@ public class DeviceController {
 	public @ResponseBody Optional<Device> findDeviceRest(@PathVariable("id") Long DeviceId) {
 		return devicerepository.findById(DeviceId);
 	}
-	
+
 	// RESTful service to get manufactor by manufactorid
 	@RequestMapping(value = "/brands/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Manufactor> findManufactorRest(@PathVariable("id") Long manufactorId) {
 		return manufactorrepository.findById(manufactorId);
 	}
-	
+
 	// RESTful service to get categories by categoryid
 	@RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Category> findCategoryRest(@PathVariable("id") Long categoryId) {
 		return categoryrepository.findById(categoryId);
-		
+
 	}
-	
-	
-	
-	@CrossOrigin(origins = "http://localhost:3000/*")
-	//REST-metodi kyselyn lisäämiseen
-		@PostMapping("/devices")
-		public @ResponseBody Device addNewDevice(@RequestBody Device device) {
-			devicerepository.save(device);
-			return device;
-		}
+
 }
